@@ -134,6 +134,8 @@ bearcli write <id> --base "$HASH" --content "# New Title\nNew body"
 
 Bear derives the title from the first `#` heading. Attachment references must be preserved in rewrites or attachments are removed.
 
+**`--insert` appends immediately after the match on the same line.** To insert on a new line, start the value with `\n`: `--insert "\nNew line"`. To add or change a note's title, prefer `write` with full content rather than `edit --insert`.
+
 ## Common patterns
 
 ```bash
