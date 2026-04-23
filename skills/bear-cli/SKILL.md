@@ -178,6 +178,7 @@ bearcli open --title "Mars" --header "Moons" --edit
 # Attachments
 bearcli attachments list <id> --format json
 cat photo.jpg | bearcli attachments add <id> --filename photo.jpg
+bearcli attachments delete <id> --filename photo.jpg
 bearcli attachments save <id> --filename photo.jpg > photo.jpg
 ```
 
