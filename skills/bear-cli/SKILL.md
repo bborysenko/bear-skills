@@ -29,13 +29,61 @@ bearcli append "$ID" --content "More text"
 
 ## Output formats
 
+Commands that support `--format` and `--fields`: `show`, `list`, `search`, `search-in`, `create`, `tags list`, `attachments list`, `pin list`. **All other commands (including `cat`) do not** — `cat` outputs raw plain text only.
+
 ```bash
 --format tsv    # Tab-separated, no header (default)
 --format csv    # Comma-separated, RFC 4180, with header
 --format json   # JSON Lines (one object per line)
 ```
 
-Always use `--format json` when parsing output programmatically. Use `--fields` to select columns. Content is excluded from `--fields all`; use `--fields all,content` to include it.
+Always use `--format json` when parsing output programmatically. Content is excluded from `--fields all`; use `--fields all,content` to include it.
+
+### Note fields (`show`, `list`, `search`, `create`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique note identifier (UUID) |
+| `title` | string | Derived from the first `#` heading |
+| `locked` | string | `"yes"` or `"no"` — encrypted note |
+| `tags` | array | Tags on the note (includes `#` prefix, e.g. `["#demo", "#work"]`) |
+| `hash` | string | Content hash (use with `write --base` for optimistic concurrency) |
+| `length` | number | Content length in bytes |
+| `created` | string | ISO 8601 UTC timestamp |
+| `modified` | string | ISO 8601 UTC timestamp |
+| `pins` | array | Pin contexts (`"global"`, tag names) |
+| `location` | string | `"notes"`, `"trash"`, or `"archive"` |
+| `todos` | number | Count of incomplete todos |
+| `done` | number | Count of completed todos |
+| `attachments` | array | Attachment filenames (e.g. `["image.png"]`) |
+| `content` | string | Full note content (excluded from `--fields all` — use `--fields all,content`) |
+| `matches` | number | Number of text matches (`search` only) |
+
+### Search-in fields (`search-in`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `offset` | number | UTF-8 byte offset of the match in the note |
+| `snippet` | string | Text surrounding the match (default 120 chars) |
+
+### Tag fields (`tags list`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `tag` | string | Tag name with `#` prefix (e.g. `"#work"`, `"#nested/child"`) |
+
+### Attachment fields (`attachments list`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `filename` | string | Attachment filename (e.g. `"image.png"`) |
+| `size` | number | File size in bytes |
+
+### Pin fields (`pin list`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `pin` | string | Pin context: `"global"` or a tag name |
 
 ## Tag syntax
 
