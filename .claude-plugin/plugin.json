@@ -1,0 +1,17 @@
+{
+  "name": "bear",
+  "description": "Read, search, create, and edit Bear notes using the Bear CLI. Use when working with Bear notes from the command line.",
+  "author": {
+    "name": "Borys Borysenko",
+    "url": "https://github.com/bborysenko"
+  },
+  "repository": "https://github.com/bborysenko/bear-skills",
+  "license": "MIT",
+  "keywords": [
+    "bear",
+    "notes",
+    "markdown",
+    "pkm",
+    "cli"
+  ]
+}
